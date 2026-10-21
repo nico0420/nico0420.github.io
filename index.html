@@ -10,10 +10,11 @@
 <meta property="og:type" content="website">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700;900&display=swap" rel="stylesheet">
 <style>
   :root {
     --paper: #F4F6F5;
+    --card: #FFFFFF;
     --ink: #1B232C;
     --muted: #5B6670;
     --rule: #D5DBDF;
@@ -27,22 +28,24 @@
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
       --paper: #151B21;
+      --card: #1C252E;
       --ink: #E6EBEE;
       --muted: #9AA6B0;
       --rule: #2C3640;
       --accent: #8DBBDD;
-      --accent-soft: #1F2C38;
+      --accent-soft: #23323F;
       --up: #E5736B;
       --down: #5DBB86;
     }
   }
   :root[data-theme="dark"] {
     --paper: #151B21;
+    --card: #1C252E;
     --ink: #E6EBEE;
     --muted: #9AA6B0;
     --rule: #2C3640;
     --accent: #8DBBDD;
-    --accent-soft: #1F2C38;
+    --accent-soft: #23323F;
     --up: #E5736B;
     --down: #5DBB86;
   }
@@ -66,30 +69,14 @@
   }
 
   .page {
-    max-width: 680px;
+    max-width: 1040px;
     margin: 0 auto;
     padding: 0 16px;
   }
 
   /* Hero */
-  .hero { position: relative; padding: 120px 0 72px; }
+  .hero { position: relative; padding: 140px 0 96px; }
   .hero > *:not(.kline) { position: relative; }
-
-  /* K-line chart drawn behind the hero */
-  .kline {
-    position: absolute;
-    top: 40px;
-    left: 50%;
-    width: 100vw;
-    max-width: 1200px;
-    height: 320px;
-    transform: translateX(-50%);
-    opacity: .28;
-    pointer-events: none;
-  }
-  .kline .wick { stroke-width: 1.5; }
-  .kline .up   { fill: var(--up);   stroke: var(--up); }
-  .kline .down { fill: var(--down); stroke: var(--down); }
   .hello {
     margin: 0 0 8px;
     color: var(--muted);
@@ -99,18 +86,18 @@
     margin: 0;
     font-family: var(--serif);
     font-weight: 900;
-    font-size: clamp(72px, 18vw, 136px);
+    font-size: clamp(80px, 19vw, 168px);
     line-height: 1;
     letter-spacing: -0.02em;
   }
   .intro {
     margin: 32px 0 0;
-    max-width: 30em;
-    font-size: 20px;
+    max-width: 28em;
+    font-size: 21px;
     line-height: 1.75;
   }
   .hero-links {
-    margin: 28px 0 0;
+    margin: 32px 0 0;
     padding: 0;
     list-style: none;
     display: flex;
@@ -118,45 +105,47 @@
     gap: 8px 24px;
   }
 
+  /* K-line chart drawn behind the hero */
+  .kline {
+    position: absolute;
+    top: 48px;
+    left: 50%;
+    width: 100vw;
+    max-width: 1280px;
+    height: 360px;
+    transform: translateX(-50%);
+    opacity: .26;
+    pointer-events: none;
+  }
+  .wick { stroke-width: 1.5; }
+  .up   { fill: var(--up);   stroke: var(--up); }
+  .down { fill: var(--down); stroke: var(--down); }
+
   /* Sections */
-  .section { padding: 56px 0; border-top: 1px solid var(--rule); }
+  .section { padding: 64px 0; border-top: 1px solid var(--rule); }
   .section h2 {
     margin: 0 0 8px;
     font-family: var(--serif);
     font-weight: 700;
-    font-size: 28px;
+    font-size: 30px;
     line-height: 1.3;
   }
-  .section > p.lede { margin: 0 0 32px; color: var(--muted); }
+  .lede { margin: 0 0 40px; color: var(--muted); max-width: 36em; }
 
-  /* Project list: domain on the left, project on the right */
+  /* Project list: illustration on the left, story on the right */
   .projects { list-style: none; margin: 0; padding: 0; }
   .project {
+    position: relative;
     display: grid;
-    grid-template-columns: 88px 1fr;
-    gap: 0 24px;
-    padding: 28px 0;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    gap: 48px;
+    align-items: center;
+    padding: 40px 0;
     border-top: 1px solid var(--rule);
   }
-  .project:first-child { border-top: 0; }
-  .project { position: relative; }
-  .project::before {
-    content: "";
-    position: absolute;
-    left: -16px;
-    top: 28px;
-    bottom: 28px;
-    width: 3px;
-    border-radius: 3px;
-    background: var(--accent);
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform 240ms ease;
-  }
-  .project:hover::before,
-  .project:focus-within::before { transform: scaleY(1); }
+  .project:first-child { border-top: 0; padding-top: 8px; }
   .domain {
-    margin: 4px 0 0;
+    margin: 0 0 6px;
     color: var(--muted);
     font-size: 15px;
     font-weight: 500;
@@ -164,21 +153,11 @@
   }
   .project:hover .domain,
   .project:focus-within .domain { color: var(--accent); }
-
-  /* Projects appear one by one as you scroll to them */
-  @media (prefers-reduced-motion: no-preference) {
-    .js .project {
-      opacity: 0;
-      transform: translateY(16px);
-      transition: opacity 600ms ease, transform 600ms cubic-bezier(.2,.7,.2,1);
-    }
-    .js .project.is-visible { opacity: 1; transform: none; }
-  }
   .project h3 {
     margin: 0;
     font-family: var(--serif);
     font-weight: 700;
-    font-size: 22px;
+    font-size: 26px;
     line-height: 1.4;
   }
   .repo {
@@ -187,9 +166,9 @@
     font-size: 14px;
     word-break: break-all;
   }
-  .project .desc { margin: 12px 0 0; }
+  .desc { margin: 14px 0 0; }
   .tech {
-    margin: 14px 0 0;
+    margin: 16px 0 0;
     padding: 0;
     list-style: none;
     display: flex;
@@ -204,7 +183,7 @@
     line-height: 1.8;
   }
   .links {
-    margin: 14px 0 0;
+    margin: 16px 0 0;
     padding: 0;
     list-style: none;
     display: flex;
@@ -213,18 +192,72 @@
     font-size: 15px;
   }
 
-  .contact p { margin: 0; }
-  .contact p + p { margin-top: 8px; }
+  /* Illustrations */
+  .ill {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 18px;
+    transition: transform 300ms cubic-bezier(.2,.7,.2,1);
+  }
+  .project:hover .ill { transform: translateY(-4px); }
+  .ill .card  { fill: var(--card); stroke: var(--rule); }
+  .ill .soft  { fill: var(--accent-soft); }
+  .ill .rule  { stroke: var(--rule); fill: none; }
+  .ill .acc   { fill: var(--accent); }
+  .ill .acc-s { stroke: var(--accent); fill: none; }
+  .ill .t     { fill: var(--ink); font-family: var(--sans); }
+  .ill .tm    { fill: var(--muted); font-family: var(--sans); }
+  .ill .tu    { fill: var(--up); font-family: var(--sans); }
+  .ill .on-acc { fill: var(--card); font-family: var(--sans); }
+  .ill .mono  { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
 
-  footer {
-    padding: 32px 0 56px;
-    border-top: 1px solid var(--rule);
-    color: var(--muted);
-    font-size: 14px;
+  /* Optical: scan line sweeps the lens, then defects are marked */
+  .scan { opacity: 0; }
+  @media (prefers-reduced-motion: no-preference) {
+    .js .project.is-visible .scan { animation: scan 1.4s ease-in-out 300ms 1 both; }
+    @keyframes scan {
+      0%   { opacity: 0; transform: translateY(-112px); }
+      12%  { opacity: 1; }
+      88%  { opacity: 1; }
+      100% { opacity: 0; transform: translateY(112px); }
+    }
+    .js .defect { opacity: 0; transition: opacity 400ms ease; }
+    .js .project.is-visible .defect { opacity: 1; }
+    .js .project.is-visible .defect.d1 { transition-delay: 1.3s; }
+    .js .project.is-visible .defect.d2 { transition-delay: 1.5s; }
+    .js .project.is-visible .defect.d3 { transition-delay: 1.7s; }
   }
 
-  /* One page-load moment: the name settles in */
+  /* Flash sale: progress bar fills */
+  .sold-bar { transform-box: fill-box; transform-origin: left; }
   @media (prefers-reduced-motion: no-preference) {
+    .js .sold-bar { transform: scaleX(0); transition: transform 1.2s cubic-bezier(.2,.7,.2,1) 300ms; }
+    .js .project.is-visible .sold-bar { transform: scaleX(1); }
+  }
+
+  /* Payment: steps light up in order */
+  @media (prefers-reduced-motion: no-preference) {
+    .js .pay-step, .js .pay-link { opacity: .25; transition: opacity 400ms ease; }
+    .js .project.is-visible .pay-step,
+    .js .project.is-visible .pay-link { opacity: 1; }
+    .js .project.is-visible .pay-step.s1 { transition-delay: 200ms; }
+    .js .project.is-visible .pay-link.l1 { transition-delay: 600ms; }
+    .js .project.is-visible .pay-step.s2 { transition-delay: 800ms; }
+    .js .project.is-visible .pay-link.l2 { transition-delay: 1.2s; }
+    .js .project.is-visible .pay-step.s3 { transition-delay: 1.4s; }
+    .js .done { opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(.6); transition: opacity 300ms ease, transform 400ms cubic-bezier(.3,1.6,.5,1); }
+    .js .project.is-visible .done { opacity: 1; transform: none; transition-delay: 1.8s; }
+  }
+
+  /* Projects appear one by one as you scroll to them */
+  @media (prefers-reduced-motion: no-preference) {
+    .js .project {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 700ms ease, transform 700ms cubic-bezier(.2,.7,.2,1);
+    }
+    .js .project.is-visible { opacity: 1; transform: none; }
     .name { animation: settle 700ms cubic-bezier(.2,.7,.2,1) both; }
     @keyframes settle {
       from { opacity: 0; transform: translateY(12px); letter-spacing: 0.04em; }
@@ -232,14 +265,26 @@
     }
   }
 
+  .contact p { margin: 0; }
+
+  footer {
+    padding: 32px 0 56px;
+    border-top: 1px solid var(--rule);
+    color: var(--muted);
+    font-size: 14px;
+  }
+  footer p { margin: 0; }
+
+  @media (max-width: 820px) {
+    .project { grid-template-columns: 1fr; gap: 24px; }
+  }
   @media (max-width: 520px) {
     body { font-size: 16px; }
-    .hero { padding: 72px 0 48px; }
-    .kline { top: 24px; height: 220px; opacity: .2; }
-    .project::before { left: -10px; }
+    .hero { padding: 80px 0 56px; }
     .intro { font-size: 18px; }
-    .project { grid-template-columns: 1fr; }
-    .domain { margin: 0 0 4px; }
+    .kline { top: 28px; height: 240px; opacity: .2; }
+    .project h3 { font-size: 23px; }
+    .section h2 { font-size: 26px; }
   }
 </style>
 </head>
@@ -259,12 +304,63 @@
 
   <section class="section" id="projects" aria-labelledby="projects-title">
     <h2 id="projects-title">做過的專案</h2>
-    <p class="lede">四個專案，各自在不同的領域。</p>
+    <p class="lede">四個專案，各自在不同的領域。插圖是示意，不是實際畫面的截圖。</p>
 
     <ul class="projects">
+
+      <!-- Optical defect AI -->
       <li class="project">
-        <p class="domain">製造</p>
+        <svg class="ill" viewBox="0 0 480 320" role="img" aria-label="示意圖：一片鏡片被掃描後，標出刮傷、氣泡和崩邊三處瑕疵與嚴重度">
+          <defs>
+            <clipPath id="lens-clip"><circle cx="170" cy="160" r="112"/></clipPath>
+            <linearGradient id="scan-glow" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="var(--accent)" stop-opacity="0"/>
+              <stop offset="1" stop-color="var(--accent)" stop-opacity=".35"/>
+            </linearGradient>
+          </defs>
+          <rect class="card" x=".5" y=".5" width="479" height="319" rx="18"/>
+          <circle class="soft" cx="170" cy="160" r="112"/>
+          <circle class="acc-s" cx="170" cy="160" r="112" stroke-width="2"/>
+          <circle class="acc-s" cx="170" cy="160" r="88" stroke-width="1" opacity=".35"/>
+          <ellipse cx="130" cy="112" rx="36" ry="14" fill="var(--card)" opacity=".55" transform="rotate(-28 130 112)"/>
+          <!-- defects on the lens -->
+          <path d="M120 176 q18 -10 40 -26" stroke="var(--ink)" stroke-width="2" fill="none" stroke-linecap="round" opacity=".55"/>
+          <circle cx="214" cy="196" r="7" fill="none" stroke="var(--ink)" stroke-width="1.5" opacity=".5"/>
+          <circle cx="226" cy="186" r="3.5" fill="none" stroke="var(--ink)" stroke-width="1.2" opacity=".5"/>
+          <path d="M262 102 l12 6 l-6 12 z" fill="var(--paper)" stroke="var(--ink)" stroke-width="1" opacity=".7"/>
+          <!-- scan line -->
+          <g clip-path="url(#lens-clip)">
+            <g class="scan">
+              <rect x="50" y="136" width="240" height="24" fill="url(#scan-glow)"/>
+              <rect x="50" y="159" width="240" height="2" class="acc"/>
+            </g>
+          </g>
+          <!-- detection results -->
+          <g class="defect d1">
+            <rect x="108" y="138" width="64" height="48" rx="4" fill="none" stroke="var(--up)" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <rect x="300" y="64" width="160" height="56" rx="10" class="soft"/>
+            <text x="314" y="88" class="t" font-size="14" font-weight="700">刮傷</text>
+            <text x="446" y="88" class="tu" font-size="13" text-anchor="end">嚴重度 4</text>
+            <text x="314" y="108" class="tm" font-size="12">信心 92%</text>
+          </g>
+          <g class="defect d2">
+            <rect x="198" y="174" width="40" height="34" rx="4" fill="none" stroke="var(--accent)" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <rect x="300" y="132" width="160" height="56" rx="10" class="soft"/>
+            <text x="314" y="156" class="t" font-size="14" font-weight="700">氣泡</text>
+            <text x="446" y="156" class="tm" font-size="13" text-anchor="end">嚴重度 2</text>
+            <text x="314" y="176" class="tm" font-size="12">信心 88%</text>
+          </g>
+          <g class="defect d3">
+            <rect x="252" y="94" width="32" height="34" rx="4" fill="none" stroke="var(--up)" stroke-width="1.5" stroke-dasharray="4 3"/>
+            <rect x="300" y="200" width="160" height="56" rx="10" class="soft"/>
+            <text x="314" y="224" class="t" font-size="14" font-weight="700">崩邊</text>
+            <text x="446" y="224" class="tu" font-size="13" text-anchor="end">嚴重度 3</text>
+            <text x="314" y="244" class="tm" font-size="12">信心 95%</text>
+          </g>
+          <text x="300" y="290" class="tm" font-size="12">共 3 處瑕疵，建議送複檢</text>
+        </svg>
         <div>
+          <p class="domain">製造</p>
           <h3>光學鏡片瑕疵檢測</h3>
           <p class="repo">optical-defect-ai</p>
           <p class="desc">用多模態 AI 看鏡片照片，找出刮傷、氣泡、油汙和崩邊，回報嚴重程度與信心分數，並依機台和規格產生產線的處理步驟。沒有 API 金鑰時，也能用離線模擬模式展示。</p>
@@ -277,9 +373,26 @@
         </div>
       </li>
 
+      <!-- Taiwan stock -->
       <li class="project">
-        <p class="domain">投資</p>
+        <svg class="ill" viewBox="0 0 480 320" role="img" aria-label="示意圖：一張個股 K 線圖，包含均線與成交量">
+          <rect class="card" x=".5" y=".5" width="479" height="319" rx="18"/>
+          <text x="28" y="44" class="t" font-size="17" font-weight="700">範例個股</text>
+          <text x="28" y="66" class="tm" font-size="12">日 K　近 40 個交易日</text>
+          <text x="452" y="44" class="tu" font-size="20" font-weight="700" text-anchor="end">612.0</text>
+          <text x="452" y="66" class="tu" font-size="13" text-anchor="end">▲ 11.0（+1.83%）</text>
+          <line class="rule" x1="28" y1="120" x2="452" y2="120" stroke-dasharray="2 4"/>
+          <line class="rule" x1="28" y1="170" x2="452" y2="170" stroke-dasharray="2 4"/>
+          <line class="rule" x1="28" y1="220" x2="452" y2="220" stroke-dasharray="2 4"/>
+          <line class="rule" x1="28" y1="256" x2="452" y2="256"/>
+          <g id="stock-chart"></g>
+          <g class="legend">
+            <line x1="28" y1="300" x2="44" y2="300" stroke="var(--accent)" stroke-width="2"/>
+            <text x="50" y="304" class="tm" font-size="12">5 日均線</text>
+          </g>
+        </svg>
         <div>
+          <p class="domain">投資</p>
           <h3>台股 K 線圖</h3>
           <p class="repo">Taiwan-Stock-Analysis</p>
           <p class="desc">查看台灣股市個股的 K 線圖。</p>
@@ -293,9 +406,36 @@
         </div>
       </li>
 
+      <!-- Flash sale cart -->
       <li class="project">
-        <p class="domain">電商</p>
+        <svg class="ill" viewBox="0 0 480 320" role="img" aria-label="示意圖：限時搶購的商品卡片，有倒數計時、搶購進度和加入購物車按鈕">
+          <rect class="card" x=".5" y=".5" width="479" height="319" rx="18"/>
+          <!-- product picture -->
+          <rect x="28" y="28" width="176" height="264" rx="14" class="soft"/>
+          <g transform="translate(116 150)" fill="none" stroke="var(--accent)" stroke-width="6" stroke-linecap="round">
+            <path d="M-44 10 v-12 a44 44 0 0 1 88 0 v12"/>
+            <rect x="-56" y="4" width="26" height="44" rx="10" fill="var(--accent)" stroke="none"/>
+            <rect x="30" y="4" width="26" height="44" rx="10" fill="var(--accent)" stroke="none"/>
+          </g>
+          <!-- badge -->
+          <rect x="228" y="32" width="84" height="26" rx="13" fill="var(--up)"/>
+          <text x="270" y="50" class="on-acc" font-size="13" font-weight="700" text-anchor="middle">限時搶購</text>
+          <text x="228" y="90" class="t" font-size="18" font-weight="700">無線耳機</text>
+          <text x="228" y="124" class="tu" font-size="24" font-weight="700">NT$1,290</text>
+          <text x="360" y="124" class="tm" font-size="14" text-decoration="line-through">NT$2,490</text>
+          <!-- countdown -->
+          <text x="228" y="162" class="tm" font-size="13">距離結束</text>
+          <text id="countdown" x="228" y="192" class="t mono" font-size="26" font-weight="700">00:14:32</text>
+          <!-- sold progress -->
+          <text x="228" y="226" class="tm" font-size="13">已搶購 86%　剩 12 件</text>
+          <rect x="228" y="236" width="224" height="8" rx="4" class="soft"/>
+          <rect class="sold-bar" x="228" y="236" width="193" height="8" rx="4" fill="var(--up)"/>
+          <!-- button -->
+          <rect x="228" y="258" width="224" height="34" rx="17" class="acc"/>
+          <text x="340" y="280" class="on-acc" font-size="14" font-weight="700" text-anchor="middle">加入購物車</text>
+        </svg>
         <div>
+          <p class="domain">電商</p>
           <h3>限時搶購購物車</h3>
           <p class="repo">Flash_Sale_Cart</p>
           <p class="desc">一個限時搶購的購物車，用 Google AI Studio 實作，資料存在 Firebase。</p>
@@ -309,9 +449,44 @@
         </div>
       </li>
 
+      <!-- LINE Pay -->
       <li class="project">
-        <p class="domain">金流</p>
+        <svg class="ill" viewBox="0 0 480 320" role="img" aria-label="示意圖：付款流程三步驟，發起付款、使用者付款、確認交易">
+          <rect class="card" x=".5" y=".5" width="479" height="319" rx="18"/>
+          <text x="28" y="44" class="t" font-size="17" font-weight="700">付款流程</text>
+          <text x="28" y="66" class="tm" font-size="12">sandbox 測試模式</text>
+
+          <line class="pay-link l1" x1="108" y1="138" x2="196" y2="138" stroke="var(--accent)" stroke-width="2" stroke-dasharray="5 4"/>
+          <line class="pay-link l2" x1="284" y1="138" x2="372" y2="138" stroke="var(--accent)" stroke-width="2" stroke-dasharray="5 4"/>
+
+          <g class="pay-step s1">
+            <circle cx="80" cy="138" r="28" class="acc"/>
+            <text x="80" y="144" class="on-acc" font-size="17" font-weight="700" text-anchor="middle">1</text>
+            <text x="80" y="194" class="t" font-size="14" font-weight="700" text-anchor="middle">發起付款</text>
+            <text x="80" y="214" class="tm mono" font-size="11" text-anchor="middle">request()</text>
+          </g>
+          <g class="pay-step s2">
+            <circle cx="240" cy="138" r="28" class="acc"/>
+            <text x="240" y="144" class="on-acc" font-size="17" font-weight="700" text-anchor="middle">2</text>
+            <text x="240" y="194" class="t" font-size="14" font-weight="700" text-anchor="middle">使用者付款</text>
+            <text x="240" y="214" class="tm" font-size="11" text-anchor="middle">導向付款頁</text>
+          </g>
+          <g class="pay-step s3">
+            <circle cx="400" cy="138" r="28" class="acc"/>
+            <text x="400" y="144" class="on-acc" font-size="17" font-weight="700" text-anchor="middle">3</text>
+            <text x="400" y="194" class="t" font-size="14" font-weight="700" text-anchor="middle">確認交易</text>
+            <text x="400" y="214" class="tm mono" font-size="11" text-anchor="middle">confirm()</text>
+          </g>
+          <g class="done">
+            <circle cx="424" cy="114" r="12" fill="var(--down)"/>
+            <path d="M418 114 l4 4 l8 -8" stroke="var(--card)" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+
+          <rect x="28" y="246" width="424" height="46" rx="10" class="soft"/>
+          <text x="46" y="275" class="t mono" font-size="13">$ composer require nico0420/line-pay</text>
+        </svg>
         <div>
+          <p class="domain">金流</p>
           <h3>LINE Pay V3 PHP 套件</h3>
           <p class="repo">php-line-pay-v3</p>
           <p class="desc">讓 PHP 網站接上 LINE Pay V3 API：發起付款、確認交易，並附上在本機用 sandbox 測試整個付款流程的方法。可以用 Composer 安裝。</p>
@@ -323,6 +498,7 @@
           </ul>
         </div>
       </li>
+
     </ul>
   </section>
 
@@ -342,88 +518,124 @@
 (function () {
   document.documentElement.classList.add("js");
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var NS = "http://www.w3.org/2000/svg";
 
-  /* Draw a K-line chart: a random walk of daily candles, red up / green down. */
-  var svg = document.querySelector(".kline");
-  if (svg) {
-    var NS = "http://www.w3.org/2000/svg";
-    var count = 48, W = 1200, H = 320, pad = 16;
-    var step = W / count, body = step * 0.56;
-    var seed = 20261021;
-    function rand() { seed = (seed * 16807) % 2147483647; return seed / 2147483647; }
-
-    var candles = [], price = 100;
+  function rng(seed) {
+    return function () { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+  }
+  function makeCandles(count, seed, drift) {
+    var rand = rng(seed), price = 100, list = [];
     for (var i = 0; i < count; i++) {
-      var open = price;
-      var close = open + (rand() - 0.46) * 6;
-      var high = Math.max(open, close) + rand() * 3;
-      var low = Math.min(open, close) - rand() * 3;
-      candles.push({ o: open, c: close, h: high, l: low });
-      price = close;
+      var o = price, c = o + (rand() - drift) * 6;
+      list.push({ o: o, c: c, h: Math.max(o, c) + rand() * 3, l: Math.min(o, c) - rand() * 3, v: 0.3 + rand() * 0.7 });
+      price = c;
     }
+    return list;
+  }
+  function el(name, attrs, parent) {
+    var n = document.createElementNS(NS, name);
+    for (var k in attrs) n.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  /* Draw candles into `target` inside the box x0..x1, y0..y1. Returns each candle's group and x/close. */
+  function drawCandles(target, candles, x0, x1, y0, y1) {
     var max = -Infinity, min = Infinity;
     candles.forEach(function (k) { max = Math.max(max, k.h); min = Math.min(min, k.l); });
-    function y(v) { return pad + (max - v) / (max - min) * (H - pad * 2); }
-
-    svg.setAttribute("viewBox", "0 0 " + W + " " + H);
-    svg.setAttribute("preserveAspectRatio", "none");
-
-    candles.forEach(function (k, i) {
-      var g = document.createElementNS(NS, "g");
-      g.setAttribute("class", k.c >= k.o ? "up" : "down");
-      var x = i * step + step / 2;
-
-      var wick = document.createElementNS(NS, "line");
-      wick.setAttribute("class", "wick");
-      wick.setAttribute("x1", x); wick.setAttribute("x2", x);
-      wick.setAttribute("y1", y(k.h)); wick.setAttribute("y2", y(k.l));
-
-      var rect = document.createElementNS(NS, "rect");
-      var top = y(Math.max(k.o, k.c));
-      rect.setAttribute("x", x - body / 2);
-      rect.setAttribute("y", top);
-      rect.setAttribute("width", body);
-      rect.setAttribute("height", Math.max(2, y(Math.min(k.o, k.c)) - top));
-      rect.setAttribute("rx", 1);
-
-      g.appendChild(wick); g.appendChild(rect);
-      if (!reduce) {
-        g.style.opacity = "0";
-        g.style.transformBox = "fill-box";
-        g.style.transformOrigin = "center";
-        g.style.transform = "scaleY(0.2)";
-        g.style.transition = "opacity 300ms ease, transform 300ms ease";
-        g.style.transitionDelay = (200 + i * 35) + "ms";
-      }
-      svg.appendChild(g);
+    var step = (x1 - x0) / candles.length, body = step * 0.56;
+    function y(v) { return y0 + (max - v) / (max - min) * (y1 - y0); }
+    return candles.map(function (k, i) {
+      var g = el("g", { "class": k.c >= k.o ? "up" : "down" }, target);
+      var x = x0 + i * step + step / 2, top = y(Math.max(k.o, k.c));
+      el("line", { "class": "wick", x1: x, x2: x, y1: y(k.h), y2: y(k.l) }, g);
+      el("rect", { x: x - body / 2, y: top, width: body, height: Math.max(2, y(Math.min(k.o, k.c)) - top), rx: 1 }, g);
+      return { g: g, x: x, cy: y(k.c), step: step, body: body };
     });
-
-    if (!reduce) {
+  }
+  function growIn(groups, baseDelay, gap) {
+    if (reduce) return;
+    groups.forEach(function (g, i) {
+      g.style.opacity = "0";
+      g.style.transformBox = "fill-box";
+      g.style.transformOrigin = "center";
+      g.style.transform = "scaleY(0.2)";
+      g.style.transition = "opacity 300ms ease, transform 300ms ease";
+      g.style.transitionDelay = (baseDelay + i * gap) + "ms";
+    });
+    requestAnimationFrame(function () {
       requestAnimationFrame(function () {
-        requestAnimationFrame(function () {
-          svg.querySelectorAll("g").forEach(function (g) {
-            g.style.opacity = "1";
-            g.style.transform = "none";
-          });
-        });
+        groups.forEach(function (g) { g.style.opacity = "1"; g.style.transform = "none"; });
       });
+    });
+  }
+
+  /* Hero background chart */
+  var hero = document.querySelector(".kline");
+  if (hero) {
+    hero.setAttribute("viewBox", "0 0 1200 320");
+    hero.setAttribute("preserveAspectRatio", "none");
+    var heroCandles = drawCandles(hero, makeCandles(48, 20261021, 0.46), 0, 1200, 16, 304);
+    growIn(heroCandles.map(function (c) { return c.g; }), 200, 35);
+  }
+
+  /* Stock illustration: candles, 5-day moving average, volume */
+  var stock = document.getElementById("stock-chart");
+  var stockGroups = [];
+  if (stock) {
+    var data = makeCandles(40, 7731, 0.42);
+    var drawn = drawCandles(stock, data, 28, 452, 92, 230);
+    stockGroups = drawn.map(function (c) { return c.g; });
+    var pts = [];
+    drawn.forEach(function (c, i) {
+      if (i < 4) return;
+      var avg = 0;
+      for (var j = i - 4; j <= i; j++) avg += drawn[j].cy;
+      pts.push(c.x.toFixed(1) + "," + (avg / 5).toFixed(1));
+    });
+    var ma = el("polyline", { points: pts.join(" "), fill: "none", stroke: "var(--accent)", "stroke-width": 2, "stroke-linejoin": "round" }, stock);
+    data.forEach(function (k, i) {
+      var c = drawn[i], h = k.v * 22;
+      el("rect", { x: c.x - c.body / 2, y: 256 - h, width: c.body, height: h, fill: k.c >= k.o ? "var(--up)" : "var(--down)", opacity: .45 }, stock);
+    });
+    if (!reduce) {
+      var len = ma.getTotalLength ? ma.getTotalLength() : 600;
+      ma.style.strokeDasharray = len;
+      ma.style.strokeDashoffset = len;
+      stockGroups.forEach(function (g) { g.style.opacity = "0"; });
+      stock.closest(".project")._onShow = function () {
+        growIn(stockGroups, 150, 30);
+        ma.style.transition = "stroke-dashoffset 1.4s ease 600ms";
+        ma.style.strokeDashoffset = "0";
+      };
     }
   }
 
-  /* Reveal projects as they scroll into view. */
+  /* Flash sale countdown, ticking down from 14:32 and starting over */
+  var cd = document.getElementById("countdown");
+  if (cd && !reduce) {
+    var left = 14 * 60 + 32;
+    setInterval(function () {
+      left = left > 0 ? left - 1 : 15 * 60;
+      var m = Math.floor(left / 60), s = left % 60;
+      cd.textContent = "00:" + (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+    }, 1000);
+  }
+
+  /* Reveal projects as they scroll into view */
   var projects = document.querySelectorAll(".project");
+  function show(p) {
+    p.classList.add("is-visible");
+    if (p._onShow) { p._onShow(); p._onShow = null; }
+  }
   if (reduce || !("IntersectionObserver" in window)) {
-    projects.forEach(function (p) { p.classList.add("is-visible"); });
+    projects.forEach(show);
     return;
   }
   var io = new IntersectionObserver(function (entries) {
     entries.forEach(function (e) {
-      if (e.isIntersecting) {
-        e.target.classList.add("is-visible");
-        io.unobserve(e.target);
-      }
+      if (e.isIntersecting) { show(e.target); io.unobserve(e.target); }
     });
-  }, { threshold: 0.15 });
+  }, { threshold: 0.2 });
   projects.forEach(function (p) { io.observe(p); });
 })();
 </script>
